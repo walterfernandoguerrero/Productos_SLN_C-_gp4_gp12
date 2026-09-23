@@ -149,6 +149,9 @@
     <ClInclude Include="ConexionBD.h" />
     <ClInclude Include="Sponsor.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="ScriptSQL-sponsors.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
