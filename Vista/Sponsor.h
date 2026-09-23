@@ -63,7 +63,89 @@ public:
 			cout << "Error al conectar a la base de datos" << endl;
 		}
 
-	}
+	}//fin metodo mostrarSponsor
+
+
+    void agregarSponsor(string nombre, string pais)
+    {
+        int q_estado = 0;
+        ConexionBD cnn = ConexionBD();
+        cnn.abrirConexion();
+
+        if (cnn.getConector()) {
+            // Concatenamos los valores dentro de la consulta SQL
+            string consulta = "INSERT INTO sponsors (nombre, pais) VALUES ('" + nombre + "', '" + pais + "');";
+            const char* c = consulta.c_str();
+
+            q_estado = mysql_query(cnn.getConector(), c);
+
+            if (!q_estado) {
+                cout << "Sponsor registrado exitosamente." << endl;
+            }
+            else {
+                cout << "Error al insertar el sponsor: " << mysql_error(cnn.getConector()) << endl;
+            }
+
+            cnn.cerrarConexion();
+        }
+        else {
+            cout << "Error al conectar a la base de datos" << endl;
+        }
+    }
+
+    void modificarSponsor(int id, string nombre, string pais)
+    {
+        int q_estado = 0;
+        ConexionBD cnn = ConexionBD();
+        cnn.abrirConexion();
+
+        if (cnn.getConector()) {
+            // Convertimos el ID a string para armar la consulta
+            string consulta = "UPDATE sponsors SET nombre = '" + nombre + "', pais = '" + pais + "' WHERE id = " + to_string(id) + ";";
+            const char* c = consulta.c_str();
+
+            q_estado = mysql_query(cnn.getConector(), c);
+
+            if (!q_estado) {
+                cout << "Sponsor modificado exitosamente." << endl;
+            }
+            else {
+                cout << "Error al modificar el sponsor: " << mysql_error(cnn.getConector()) << endl;
+            }
+
+            cnn.cerrarConexion();
+        }
+        else {
+            cout << "Error al conectar a la base de datos" << endl;
+        }
+    }
+
+    void borrarSponsor(int id)
+    {
+        int q_estado = 0;
+        ConexionBD cnn = ConexionBD();
+        cnn.abrirConexion();
+
+        if (cnn.getConector()) {
+            string consulta = "DELETE FROM sponsors WHERE id = " + to_string(id) + ";";
+            const char* c = consulta.c_str();
+
+            q_estado = mysql_query(cnn.getConector(), c);
+
+            if (!q_estado) {
+                cout << "Sponsor eliminado exitosamente." << endl;
+            }
+            else {
+                cout << "Error al eliminar el sponsor: " << mysql_error(cnn.getConector()) << endl;
+            }
+
+            cnn.cerrarConexion();
+        }
+        else {
+            cout << "Error al conectar a la base de datos" << endl;
+        }
+    }
+
 
 };
 
